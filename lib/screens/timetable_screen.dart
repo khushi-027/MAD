@@ -48,7 +48,10 @@ class _TimetableScreenState extends State<TimetableScreen> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final cs = Theme.of(context).colorScheme;
+=======
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
     final entries = _schedule[_days[_selectedDay]] ?? [];
 
     return Scaffold(
@@ -67,12 +70,21 @@ class _TimetableScreenState extends State<TimetableScreen> {
                   label: Text(_days[index]),
                   selected: selected,
                   onSelected: (_) => setState(() => _selectedDay = index),
+<<<<<<< HEAD
                   selectedColor: cs.primary,
                   labelStyle: TextStyle(
                     color: selected ? cs.onPrimary : cs.onBackground,
                     fontWeight: FontWeight.bold,
                   ),
                   backgroundColor: cs.surface,
+=======
+                  selectedColor: const Color(0xFF5D4037),
+                  labelStyle: TextStyle(
+                    color: selected ? Colors.white : const Color(0xFF5D4037),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  backgroundColor: Colors.white,
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                 );
               }),
             ),
@@ -81,6 +93,7 @@ class _TimetableScreenState extends State<TimetableScreen> {
           // period list scrolls independently of the day-selector above it.
           Expanded(
             child: entries.isEmpty
+<<<<<<< HEAD
                 ? Center(
                     child: Text(
                       'No classes scheduled',
@@ -89,15 +102,22 @@ class _TimetableScreenState extends State<TimetableScreen> {
                       ),
                     ),
                   )
+=======
+                ? const Center(child: Text('No classes scheduled', style: TextStyle(color: Colors.brown)))
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                 : ListView.separated(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     itemCount: entries.length,
                     separatorBuilder: (_, __) => const SizedBox(height: 10),
                     itemBuilder: (context, index) {
                       final entry = entries[index];
+<<<<<<< HEAD
                       final color =
                           _subjectColors[entry['subject']] ??
                           const Color(0xFF5D4037);
+=======
+                      final color = _subjectColors[entry['subject']] ?? const Color(0xFF5D4037);
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                       return _PeriodTile(
                         time: entry['time']!,
                         subject: entry['subject']!,
@@ -139,10 +159,14 @@ class _PeriodTile extends StatelessWidget {
             Container(
               width: 6,
               height: 44,
+<<<<<<< HEAD
               decoration: BoxDecoration(
                 color: color,
                 borderRadius: BorderRadius.circular(4),
               ),
+=======
+              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
             ),
             const SizedBox(width: 14),
             // Expanded: subject/room text takes all remaining row width responsively
@@ -150,6 +174,7 @@ class _PeriodTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+<<<<<<< HEAD
                   Text(
                     subject,
                     style:
@@ -183,6 +208,15 @@ class _PeriodTile extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
+=======
+                  Text(subject, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                  const SizedBox(height: 2),
+                  Text(room, style: const TextStyle(color: Colors.brown, fontSize: 12)),
+                ],
+              ),
+            ),
+            Text(time, style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600)),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
           ],
         ),
       ),

@@ -63,9 +63,13 @@ class AssignmentsScreen extends StatelessWidget {
 
           return Card(
             margin: const EdgeInsets.only(bottom: 12),
+<<<<<<< HEAD
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(14),
             ),
+=======
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
             child: Padding(
               padding: const EdgeInsets.all(14.0),
               child: Row(
@@ -85,6 +89,7 @@ class AssignmentsScreen extends StatelessWidget {
                       children: [
                         Text(
                           item['title'] as String,
+<<<<<<< HEAD
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
@@ -94,16 +99,23 @@ class AssignmentsScreen extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
                               ),
+=======
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                         ),
                         const SizedBox(height: 4),
                         Text(
                           '${item['subject']} • ${item['due']}',
+<<<<<<< HEAD
                           style: TextStyle(
                             fontSize: 12,
                             color: Theme.of(
                               context,
                             ).colorScheme.onBackground.withOpacity(0.75),
                           ),
+=======
+                          style: const TextStyle(fontSize: 12, color: Colors.brown),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                         ),
                       ],
                     ),
@@ -112,21 +124,29 @@ class AssignmentsScreen extends StatelessWidget {
                   // Flexible: status chip only takes the width its text needs
                   Flexible(
                     child: Container(
+<<<<<<< HEAD
                       padding: const EdgeInsets.symmetric(
                         horizontal: 10,
                         vertical: 6,
                       ),
+=======
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                       decoration: BoxDecoration(
                         color: color.withOpacity(0.12),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
                         status,
+<<<<<<< HEAD
                         style: TextStyle(
                           color: color,
                           fontSize: 11,
                           fontWeight: FontWeight.bold,
                         ),
+=======
+                        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.bold),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                       ),
                     ),
                   ),

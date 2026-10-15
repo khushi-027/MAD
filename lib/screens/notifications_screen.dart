@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import '../models/app_settings.dart';
 
 /// Practical 4: NotificationsScreen now reads the shared [AppSettings]
@@ -13,25 +14,40 @@ class NotificationsScreen extends StatelessWidget {
   const NotificationsScreen({super.key, required this.settings});
 
   static const List<Map<String, dynamic>> _allNotifications = [
+=======
+
+class NotificationsScreen extends StatelessWidget {
+  const NotificationsScreen({super.key});
+
+  // Dataset from Practical 3
+  static const List<Map<String, dynamic>> _notifications = [
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
     {
       'title': 'Internal Exam Schedule',
       'subtitle': 'Semester V internal exams begin next Monday.',
       'icon': Icons.event_note,
       'time': '2h ago',
+<<<<<<< HEAD
       'category': 'Examination Notifications',
+=======
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
     },
     {
       'title': 'Assignment Deadline',
       'subtitle': 'REST API Integration assignment due tomorrow.',
       'icon': Icons.assignment_late,
       'time': '5h ago',
+<<<<<<< HEAD
       'category': 'Assignment Alerts',
+=======
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
     },
     {
       'title': 'Technical Event Registration',
       'subtitle': 'Registrations for the Hackathon close this Friday.',
       'icon': Icons.campaign,
       'time': '1d ago',
+<<<<<<< HEAD
       'category': 'Event Announcements',
     },
     {
@@ -40,11 +56,14 @@ class NotificationsScreen extends StatelessWidget {
       'icon': Icons.work_outline,
       'time': '2d ago',
       'category': 'Placement Updates',
+=======
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
     },
   ];
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final cs = Theme.of(context).colorScheme;
     final notifications = _allNotifications
         .where((n) => settings.notificationPrefs[n['category']] ?? true)
@@ -123,6 +142,57 @@ class NotificationsScreen extends StatelessWidget {
                 );
               },
             ),
+=======
+    return Scaffold(
+      appBar: AppBar(title: const Text('Notifications')),
+      // ListView.separated: multi-child scrollable widget with a divider
+      // between each entry, adapting to any number of notifications.
+      body: ListView.separated(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: _notifications.length,
+        separatorBuilder: (_, __) => const Divider(height: 1),
+        itemBuilder: (context, index) {
+          final item = _notifications[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 22,
+                  backgroundColor: const Color(0xFF5D4037).withOpacity(0.1),
+                  child: Icon(item['icon'] as IconData, color: const Color(0xFF5D4037)),
+                ),
+                const SizedBox(width: 14),
+                // Expanded: message text wraps and fills remaining row width
+                // responsively across phone and tablet screen sizes.
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item['title'] as String,
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        item['subtitle'] as String,
+                        style: const TextStyle(fontSize: 13, color: Colors.brown),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  item['time'] as String,
+                  style: const TextStyle(fontSize: 11, color: Colors.grey),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
     );
   }
 }

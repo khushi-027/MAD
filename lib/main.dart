@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'models/app_settings.dart';
+=======
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
 import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/registration_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/profile_screen.dart';
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
 import 'screens/attendance_screen.dart';
 import 'screens/timetable_screen.dart';
 import 'screens/assignments_screen.dart';
 import 'screens/notifications_screen.dart';
 import 'screens/faculty_screen.dart';
 import 'screens/event_gallery_screen.dart';
+<<<<<<< HEAD
 import 'screens/settings_screen.dart';
+=======
+=======
+>>>>>>> ce26a43b9d3cb92d948e22bb1456f554e85929a2
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
 
 void main() {
   runApp(const StudentCompanionApp());
 }
 
+<<<<<<< HEAD
 /// Practical 4: StudentCompanionApp is now a StatefulWidget.
 ///
 /// It owns a single [AppSettings] instance -- the app's Application State.
@@ -42,10 +55,17 @@ class _StudentCompanionAppState extends State<StudentCompanionApp> {
   }
 
   @override
+=======
+class StudentCompanionApp extends StatelessWidget {
+  const StudentCompanionApp({super.key});
+
+  @override
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Smart Student Companion',
       debugShowCheckedModeBanner: false,
+<<<<<<< HEAD
       themeMode: settings.themeMode,
       theme: ThemeData(
         useMaterial3: true,
@@ -54,6 +74,13 @@ class _StudentCompanionAppState extends State<StudentCompanionApp> {
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF5D4037), // Rich Brown
           brightness: Brightness.light,
+=======
+      theme: ThemeData(
+        useMaterial3: true,
+        // Theme updated to Brown, Cream, and White
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF5D4037), // Rich Brown
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
           primary: const Color(0xFF5D4037),
           secondary: const Color(0xFF8D6E63), // Light Soft Brown
           surface: const Color(0xFFFFFDD0), // Warm Cream
@@ -70,6 +97,7 @@ class _StudentCompanionAppState extends State<StudentCompanionApp> {
           margin: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
         ),
       ),
+<<<<<<< HEAD
       darkTheme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
@@ -91,11 +119,14 @@ class _StudentCompanionAppState extends State<StudentCompanionApp> {
           margin: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
         ),
       ),
+=======
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),
         '/login': (context) => const LoginScreen(),
         '/register': (context) => const RegistrationScreen(),
+<<<<<<< HEAD
         '/dashboard': (context) => DashboardScreen(settings: settings),
         '/profile': (context) => ProfileScreen(settings: settings),
         '/attendance': (context) => const AttendanceScreen(),
@@ -108,6 +139,19 @@ class _StudentCompanionAppState extends State<StudentCompanionApp> {
               settings: settings,
               onSettingsChanged: _updateSettings,
             ),
+=======
+        '/dashboard': (context) => const DashboardScreen(),
+        '/profile': (context) => const ProfileScreen(),
+<<<<<<< HEAD
+        '/attendance': (context) => const AttendanceScreen(),
+        '/timetable': (context) => const TimetableScreen(),
+        '/assignments': (context) => const AssignmentsScreen(),
+        '/notifications': (context) => const NotificationsScreen(),
+        '/faculty': (context) => const FacultyScreen(),
+        '/events': (context) => const EventGalleryScreen(),
+=======
+>>>>>>> ce26a43b9d3cb92d948e22bb1456f554e85929a2
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
       },
     );
   }

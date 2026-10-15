@@ -5,6 +5,7 @@ class FacultyScreen extends StatelessWidget {
 
   // Faculty mapped to the attendance-module subjects from the dataset
   static const List<Map<String, String>> _faculty = [
+<<<<<<< HEAD
     {
       'name': 'Prof. Nirav Bhatt',
       'subject': 'DBMS',
@@ -25,6 +26,12 @@ class FacultyScreen extends StatelessWidget {
       'subject': 'CP',
       'cabin': 'Cabin 07, Block C',
     },
+=======
+    {'name': 'Prof. Nirav Bhatt', 'subject': 'DBMS', 'cabin': 'Cabin 12, Block A'},
+    {'name': 'Prof. Gaurav Kumar', 'subject': 'MAD', 'cabin': 'Cabin 04, Block B'},
+    {'name': 'Prof. Prajyot Patel', 'subject': 'AI', 'cabin': 'Cabin 09, Block A'},
+    {'name': 'Prof. Dheeraj shringi', 'subject': 'CP', 'cabin': 'Cabin 07, Block C'},
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
   ];
 
   @override
@@ -67,11 +74,15 @@ class _FacultyCard extends StatelessWidget {
   final String subject;
   final String cabin;
 
+<<<<<<< HEAD
   const _FacultyCard({
     required this.name,
     required this.subject,
     required this.cabin,
   });
+=======
+  const _FacultyCard({required this.name, required this.subject, required this.cabin});
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +111,7 @@ class _FacultyCard extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 36,
+<<<<<<< HEAD
                     backgroundColor: Theme.of(context).colorScheme.primary,
                     child: Text(
                       initials,
@@ -108,12 +120,19 @@ class _FacultyCard extends StatelessWidget {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
+=======
+                    backgroundColor: const Color(0xFF5D4037),
+                    child: Text(
+                      initials,
+                      style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                     ),
                   ),
                   Positioned(
                     bottom: -2,
                     right: -2,
                     child: Container(
+<<<<<<< HEAD
                       padding: const EdgeInsets.symmetric(
                         horizontal: 6,
                         vertical: 3,
@@ -133,6 +152,17 @@ class _FacultyCard extends StatelessWidget {
                           fontSize: 9,
                           fontWeight: FontWeight.bold,
                         ),
+=======
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF8D6E63),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                      child: Text(
+                        subject,
+                        style: const TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                       ),
                     ),
                   ),
@@ -143,22 +173,30 @@ class _FacultyCard extends StatelessWidget {
             Text(
               name,
               textAlign: TextAlign.center,
+<<<<<<< HEAD
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 13,
                 color: Theme.of(context).colorScheme.onBackground,
               ),
+=======
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF5D4037)),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
             ),
             const SizedBox(height: 4),
             Text(
               cabin,
               textAlign: TextAlign.center,
+<<<<<<< HEAD
               style: TextStyle(
                 fontSize: 11,
                 color: Theme.of(
                   context,
                 ).colorScheme.onBackground.withOpacity(0.78),
               ),
+=======
+              style: const TextStyle(fontSize: 11, color: Colors.brown),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
             ),
           ],
         ),

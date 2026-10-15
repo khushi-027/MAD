@@ -20,13 +20,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final cs = Theme.of(context).colorScheme;
+=======
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+<<<<<<< HEAD
             Icon(Icons.school_rounded, size: 100, color: cs.onPrimary),
             const SizedBox(height: 16),
             Text(
@@ -39,6 +43,16 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             const SizedBox(height: 24),
             CircularProgressIndicator(color: cs.onPrimary),
+=======
+            const Icon(Icons.school_rounded, size: 100, color: Colors.white),
+            const SizedBox(height: 16),
+            const Text(
+              'Smart Student Companion',
+              style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 24),
+            const CircularProgressIndicator(color: Colors.white),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
           ],
         ),
       ),

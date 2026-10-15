@@ -5,6 +5,7 @@ class EventGalleryScreen extends StatelessWidget {
 
   // At least six events, as required by the dataset
   static const List<Map<String, dynamic>> _events = [
+<<<<<<< HEAD
     {
       'title': 'Tech Hackathon 2026',
       'date': '18 Aug',
@@ -41,6 +42,14 @@ class EventGalleryScreen extends StatelessWidget {
       'color': Color(0xFF4E342E),
       'icon': Icons.record_voice_over,
     },
+=======
+    {'title': 'Tech Hackathon 2026', 'date': '18 Aug', 'color': Color(0xFF5D4037), 'icon': Icons.laptop_mac},
+    {'title': 'AI & ML Workshop', 'date': '22 Aug', 'color': Color(0xFF6D4C41), 'icon': Icons.memory},
+    {'title': 'Coding Sprint', 'date': '29 Aug', 'color': Color(0xFF8D6E63), 'icon': Icons.code},
+    {'title': 'Cultural Fest', 'date': '02 Sep', 'color': Color(0xFFA1887F), 'icon': Icons.celebration},
+    {'title': 'Sports Meet', 'date': '10 Sep', 'color': Color(0xFF795548), 'icon': Icons.sports_soccer},
+    {'title': 'Alumni Talk', 'date': '15 Sep', 'color': Color(0xFF4E342E), 'icon': Icons.record_voice_over},
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
   ];
 
   @override
@@ -85,6 +94,7 @@ class _EventCard extends StatelessWidget {
   final Color color;
   final IconData icon;
 
+<<<<<<< HEAD
   const _EventCard({
     required this.title,
     required this.date,
@@ -95,6 +105,12 @@ class _EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+=======
+  const _EventCard({required this.title, required this.date, required this.color, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
     return ClipRRect(
       borderRadius: BorderRadius.circular(16),
       // Stack: layers a gradient scrim and text on top of a colored
@@ -113,11 +129,15 @@ class _EventCard extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.center,
+<<<<<<< HEAD
             child: Icon(
               icon,
               size: 40,
               color: cs.onBackground.withOpacity(0.35),
             ),
+=======
+            child: Icon(icon, size: 40, color: Colors.white.withOpacity(0.35)),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
           ),
           Positioned(
             left: 0,
@@ -125,8 +145,13 @@ class _EventCard extends StatelessWidget {
             bottom: 0,
             child: Container(
               padding: const EdgeInsets.all(10),
+<<<<<<< HEAD
               decoration: BoxDecoration(
                 color: cs.onBackground.withOpacity(0.18),
+=======
+              decoration: const BoxDecoration(
+                color: Colors.black26,
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,19 +161,27 @@ class _EventCard extends StatelessWidget {
                     title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
+<<<<<<< HEAD
                     style: TextStyle(
                       color: cs.onBackground,
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
                     ),
+=======
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                   ),
                   const SizedBox(height: 2),
                   Text(
                     date,
+<<<<<<< HEAD
                     style: TextStyle(
                       color: cs.onBackground.withOpacity(0.78),
                       fontSize: 11,
                     ),
+=======
+                    style: const TextStyle(color: Colors.white70, fontSize: 11),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                   ),
                 ],
               ),

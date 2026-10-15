@@ -14,10 +14,15 @@ class AttendanceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final cs = Theme.of(context).colorScheme;
     final double overall =
         _attendance.map((e) => e['percent'] as double).reduce((a, b) => a + b) /
         _attendance.length;
+=======
+    final double overall =
+        _attendance.map((e) => e['percent'] as double).reduce((a, b) => a + b) / _attendance.length;
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
 
     return Scaffold(
       appBar: AppBar(title: const Text('Attendance Summary')),
@@ -28,27 +33,43 @@ class AttendanceScreen extends StatelessWidget {
         children: [
           // Single Child widget (Card) wrapping a Row/Column combination
           Card(
+<<<<<<< HEAD
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
             color: cs.primary,
+=======
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            color: const Color(0xFF5D4037),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+<<<<<<< HEAD
                   Text(
                     'Overall Attendance',
                     style: TextStyle(
                       color: cs.onPrimary.withOpacity(0.9),
                       fontSize: 14,
                     ),
+=======
+                  const Text(
+                    'Overall Attendance',
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                   ),
                   const SizedBox(height: 6),
                   Text(
                     '${(overall * 100).toStringAsFixed(0)}%',
+<<<<<<< HEAD
                     style: TextStyle(
                       color: cs.onPrimary,
+=======
+                    style: const TextStyle(
+                      color: Colors.white,
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                       fontSize: 34,
                       fontWeight: FontWeight.bold,
                     ),
@@ -63,8 +84,13 @@ class AttendanceScreen extends StatelessWidget {
                           child: LinearProgressIndicator(
                             value: overall,
                             minHeight: 8,
+<<<<<<< HEAD
                             backgroundColor: cs.onPrimary.withOpacity(0.24),
                             valueColor: AlwaysStoppedAnimation(cs.onPrimary),
+=======
+                            backgroundColor: Colors.white24,
+                            valueColor: const AlwaysStoppedAnimation(Colors.white),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                           ),
                         ),
                       ),
@@ -74,6 +100,7 @@ class AttendanceScreen extends StatelessWidget {
               ),
             ),
           ),
+<<<<<<< HEAD
           const SectionHeader(
             title: 'Subject-wise Attendance',
             icon: Icons.bar_chart,
@@ -85,6 +112,14 @@ class AttendanceScreen extends StatelessWidget {
               percent: item['percent'] as double,
             ),
           ),
+=======
+          const SectionHeader(title: 'Subject-wise Attendance', icon: Icons.bar_chart),
+          // Column of subject rows built from the dataset
+          ..._attendance.map((item) => _AttendanceTile(
+                subject: item['subject'] as String,
+                percent: item['percent'] as double,
+              )),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
         ],
       ),
     );
@@ -116,10 +151,14 @@ class _AttendanceTile extends StatelessWidget {
               flex: 2,
               child: Text(
                 subject,
+<<<<<<< HEAD
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 15,
                 ),
+=======
+                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
               ),
             ),
             const SizedBox(width: 12),
@@ -131,7 +170,11 @@ class _AttendanceTile extends StatelessWidget {
                 child: LinearProgressIndicator(
                   value: percent,
                   minHeight: 10,
+<<<<<<< HEAD
                   backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+=======
+                  backgroundColor: Colors.grey.shade200,
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                   valueColor: AlwaysStoppedAnimation(_statusColor),
                 ),
               ),
@@ -139,10 +182,14 @@ class _AttendanceTile extends StatelessWidget {
             const SizedBox(width: 12),
             Text(
               '${(percent * 100).toStringAsFixed(0)}%',
+<<<<<<< HEAD
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: _statusColor,
               ),
+=======
+              style: TextStyle(fontWeight: FontWeight.bold, color: _statusColor),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
             ),
           ],
         ),

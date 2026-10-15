@@ -19,7 +19,10 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final cs = Theme.of(context).colorScheme;
+=======
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextFormField(
@@ -29,9 +32,17 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: label,
           prefixIcon: Icon(icon, color: Theme.of(context).colorScheme.primary),
+<<<<<<< HEAD
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           filled: true,
           fillColor: cs.surface, // theme-aware fill color
+=======
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          filled: true,
+          fillColor: Colors.white, // Input field matches White accent
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
         ),
       ),
     );
@@ -54,21 +65,33 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.primary,
+<<<<<<< HEAD
           foregroundColor: Theme.of(context).colorScheme.onPrimary,
+=======
+          foregroundColor: Colors.white,
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           elevation: 2,
         ),
+<<<<<<< HEAD
         child: Text(
           text,
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
+=======
+        child: Text(text, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
       ),
     );
   }
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
 // Reusable section title used to organize content within a scrollable screen
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -83,15 +106,26 @@ class SectionHeader extends StatelessWidget {
       child: Row(
         children: [
           if (icon != null) ...[
+<<<<<<< HEAD
             Icon(icon, size: 18, color: Theme.of(context).colorScheme.primary),
+=======
+            Icon(icon, size: 18, color: const Color(0xFF5D4037)),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
             const SizedBox(width: 6),
           ],
           Text(
             title,
+<<<<<<< HEAD
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.onBackground,
+=======
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF5D4037),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
             ),
           ),
         ],
@@ -130,20 +164,31 @@ class DashboardCard extends StatelessWidget {
               CircleAvatar(
                 radius: 20, // Reduced circle element boundary size
                 backgroundColor: color.withOpacity(0.1),
+<<<<<<< HEAD
                 child: Icon(
                   icon,
                   size: 22,
                   color: color,
                 ), // Reduced icon scaling size
+=======
+                child: Icon(icon, size: 22, color: color), // Reduced icon scaling size
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
               ),
               const SizedBox(height: 8),
               Text(
                 title,
                 textAlign: TextAlign.center,
+<<<<<<< HEAD
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
                   color: Theme.of(context).colorScheme.onBackground,
+=======
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold, 
+                  fontSize: 14, // More compact text sizing rules
+                  color: Color(0xFF5D4037),
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
                 ),
               ),
             ],

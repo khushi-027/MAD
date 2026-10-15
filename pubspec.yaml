@@ -1,10 +1,24 @@
+<<<<<<< HEAD
 name: student_companion_pr4
 description: "AIUE302 MAD - Practical 4: State management with setState() (Settings, theme, preferences)."
+=======
+<<<<<<< HEAD
+name: student_companion_pr3
+description: "AIUE302 MAD - Practical 3: Smart Student Companion app with dashboard modules."
+=======
+name: student_companion_pr2
+description: "AIUE302 MAD - Practical 2: Smart Student Companion UI (Splash, Login, Registration, Dashboard, Profile)."
+>>>>>>> ce26a43b9d3cb92d948e22bb1456f554e85929a2
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
 publish_to: 'none'
 version: 1.0.0+1
 
 environment:
+<<<<<<< HEAD
   sdk: ^3.9.0
+=======
+  sdk: ^3.6.0
+>>>>>>> 06896c3daa9244bef5a9719c9b822d58d67eea3c
 
 dependencies:
   flutter:
