@@ -1,5 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
+<<<<<<< HEAD
 import 'package:student_companion_pr3/main.dart';
+=======
+import 'package:student_companion_pr2/main.dart';
+>>>>>>> ce26a43b9d3cb92d948e22bb1456f554e85929a2
 
 void main() {
   testWidgets('Splash opens Login, empty login shows validation', (tester) async {

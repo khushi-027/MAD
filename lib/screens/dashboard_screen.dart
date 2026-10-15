@@ -8,6 +8,7 @@ class DashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Theme matching brown tones assigned down directly onto elements grid array mapping parameters
     final List<Map<String, dynamic>> modules = [
+<<<<<<< HEAD
   {'title': 'Attendance', 'icon': Icons.co_present, 'color': const Color(0xFF5D4037), 'route': '/attendance'},
   {'title': 'Timetable', 'icon': Icons.calendar_today, 'color': const Color(0xFF8D6E63), 'route': '/timetable'},
   {'title': 'Assignments', 'icon': Icons.assignment, 'color': const Color(0xFF5D4037), 'route': '/assignments'},
@@ -17,6 +18,18 @@ class DashboardScreen extends StatelessWidget {
   {'title': 'Settings', 'icon': Icons.settings, 'color': const Color(0xFF5D4037), 'route': null},
 ];
 
+=======
+  {'title': 'Attendance', 'icon': Icons.co_present, 'color': const Color(0xFF5D4037)},
+  {'title': 'Timetable', 'icon': Icons.calendar_today, 'color': const Color(0xFF8D6E63)},
+  {'title': 'Assignments', 'icon': Icons.assignment, 'color': const Color(0xFF5D4037)},
+  {'title': 'Notes', 'icon': Icons.note_alt, 'color': const Color(0xFF8D6E63)},
+  {'title': 'Events', 'icon': Icons.event, 'color': const Color(0xFF5D4037)},
+  {'title': 'Notifications', 'icon': Icons.notifications, 'color': const Color(0xFF8D6E63)},
+  {'title': 'Settings', 'icon': Icons.settings, 'color': const Color(0xFF5D4037)},
+];
+
+
+>>>>>>> ce26a43b9d3cb92d948e22bb1456f554e85929a2
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dashboard', style: TextStyle(fontWeight: FontWeight.bold)),
@@ -67,6 +80,7 @@ class DashboardScreen extends StatelessWidget {
                   icon: module['icon'],
                   color: module['color'],
                   onTap: () {
+<<<<<<< HEAD
                     final route = module['route'];
                     if (route != null) {
                       Navigator.pushNamed(context, route);
@@ -75,6 +89,11 @@ class DashboardScreen extends StatelessWidget {
                         SnackBar(content: Text('Opening ${module['title']}...')),
                       );
                     }
+=======
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Opening ${module['title']}...')),
+                    );
+>>>>>>> ce26a43b9d3cb92d948e22bb1456f554e85929a2
                   },
                 );
               },

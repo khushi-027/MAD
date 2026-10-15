@@ -4,12 +4,15 @@ import 'screens/login_screen.dart';
 import 'screens/registration_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/profile_screen.dart';
+<<<<<<< HEAD
 import 'screens/attendance_screen.dart';
 import 'screens/timetable_screen.dart';
 import 'screens/assignments_screen.dart';
 import 'screens/notifications_screen.dart';
 import 'screens/faculty_screen.dart';
 import 'screens/event_gallery_screen.dart';
+=======
+>>>>>>> ce26a43b9d3cb92d948e22bb1456f554e85929a2
 
 void main() {
   runApp(const StudentCompanionApp());
@@ -51,12 +54,15 @@ class StudentCompanionApp extends StatelessWidget {
         '/register': (context) => const RegistrationScreen(),
         '/dashboard': (context) => const DashboardScreen(),
         '/profile': (context) => const ProfileScreen(),
+<<<<<<< HEAD
         '/attendance': (context) => const AttendanceScreen(),
         '/timetable': (context) => const TimetableScreen(),
         '/assignments': (context) => const AssignmentsScreen(),
         '/notifications': (context) => const NotificationsScreen(),
         '/faculty': (context) => const FacultyScreen(),
         '/events': (context) => const EventGalleryScreen(),
+=======
+>>>>>>> ce26a43b9d3cb92d948e22bb1456f554e85929a2
       },
     );
   }
