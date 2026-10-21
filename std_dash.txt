@@ -1,0 +1,1383 @@
+lib/
+
+screens/
+asssignment.dart
+import 'package:flutter/material.dart';
+
+class AssignmentsScreen extends StatelessWidget {
+  const AssignmentsScreen({super.key});
+
+  // Dataset from Practical 3
+  static const List<Map<String, dynamic>> _assignments = [
+    {
+      'title': 'Flutter UI Design',
+      'subject': 'MAD',
+      'due': 'Due in 2 days',
+      'status': 'Pending',
+    },
+    {
+      'title': 'Database CRUD',
+      'subject': 'DBMS',
+      'due': 'Due in 5 days',
+      'status': 'In Progress',
+    },
+    {
+      'title': 'REST API Integration',
+      'subject': 'MAD',
+      'due': 'Submitted',
+      'status': 'Completed',
+    },
+  ];
+
+  Color _statusColor(String status) {
+    switch (status) {
+      case 'Completed':
+        return const Color(0xFF2E7D32);
+      case 'In Progress':
+        return const Color(0xFFEF6C00);
+      default:
+        return const Color(0xFFC62828);
+    }
+  }
+
+  IconData _statusIcon(String status) {
+    switch (status) {
+      case 'Completed':
+        return Icons.check_circle;
+      case 'In Progress':
+        return Icons.hourglass_bottom;
+      default:
+        return Icons.pending_actions;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Assignment List')),
+      // ListView.builder: multi-child scrollable widget, handles any number
+      // of assignments without overflowing the screen.
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: _assignments.length,
+        itemBuilder: (context, index) {
+          final item = _assignments[index];
+          final status = item['status'] as String;
+          final color = _statusColor(status);
+
+          return Card(
+            margin: const EdgeInsets.only(bottom: 12),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+            child: Padding(
+              padding: const EdgeInsets.all(14.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    radius: 22,
+                    backgroundColor: color.withOpacity(0.12),
+                    child: Icon(_statusIcon(status), color: color),
+                  ),
+                  const SizedBox(width: 14),
+                  // Expanded: title/subject column stretches to fill remaining
+                  // width so the layout adapts to any device size.
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item['title'] as String,
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '${item['subject']} • ${item['due']}',
+                          style: const TextStyle(fontSize: 12, color: Colors.brown),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  // Flexible: status chip only takes the width its text needs
+                  Flexible(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: color.withOpacity(0.12),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(
+                        status,
+                        style: TextStyle(color: color, fontSize: 11, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+
+
+attendence
+import 'package:flutter/material.dart';
+import '../widgets/custom_widgets.dart';
+
+class AttendanceScreen extends StatelessWidget {
+  const AttendanceScreen({super.key});
+
+  // Dataset from Practical 3
+  static const List<Map<String, dynamic>> _attendance = [
+    {'subject': 'DBMS', 'percent': 0.92},
+    {'subject': 'MAD', 'percent': 0.88},
+    {'subject': 'AI', 'percent': 0.95},
+    {'subject': 'CN', 'percent': 0.90},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    final double overall =
+        _attendance.map((e) => e['percent'] as double).reduce((a, b) => a + b) / _attendance.length;
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Attendance Summary')),
+      // ListView.builder: Multi-Child scrollable widget, ensures the screen
+      // adapts to any device height without overflow.
+      body: ListView(
+        padding: const EdgeInsets.all(16.0),
+        children: [
+          // Single Child widget (Card) wrapping a Row/Column combination
+          Card(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            color: const Color(0xFF5D4037),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Overall Attendance',
+                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    '${(overall * 100).toStringAsFixed(0)}%',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 34,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  // Row + Expanded: fills all available horizontal space responsively
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: LinearProgressIndicator(
+                            value: overall,
+                            minHeight: 8,
+                            backgroundColor: Colors.white24,
+                            valueColor: const AlwaysStoppedAnimation(Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SectionHeader(title: 'Subject-wise Attendance', icon: Icons.bar_chart),
+          // Column of subject rows built from the dataset
+          ..._attendance.map((item) => _AttendanceTile(
+                subject: item['subject'] as String,
+                percent: item['percent'] as double,
+              )),
+        ],
+      ),
+    );
+  }
+}
+
+class _AttendanceTile extends StatelessWidget {
+  final String subject;
+  final double percent;
+
+  const _AttendanceTile({required this.subject, required this.percent});
+
+  Color get _statusColor {
+    if (percent >= 0.90) return const Color(0xFF2E7D32); // Good
+    if (percent >= 0.75) return const Color(0xFFEF6C00); // Warning
+    return const Color(0xFFC62828); // Critical
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        child: Row(
+          children: [
+            // Flexible: subject name shrinks/grows but never forces overflow
+            Flexible(
+              flex: 2,
+              child: Text(
+                subject,
+                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+              ),
+            ),
+            const SizedBox(width: 12),
+            // Expanded: progress bar always fills remaining space regardless of screen width
+            Expanded(
+              flex: 4,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: LinearProgressIndicator(
+                  value: percent,
+                  minHeight: 10,
+                  backgroundColor: Colors.grey.shade200,
+                  valueColor: AlwaysStoppedAnimation(_statusColor),
+                ),
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(
+              '${(percent * 100).toStringAsFixed(0)}%',
+              style: TextStyle(fontWeight: FontWeight.bold, color: _statusColor),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+dashboard
+import 'package:flutter/material.dart';
+import '../widgets/custom_widgets.dart';
+
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Theme matching brown tones assigned down directly onto elements grid array mapping parameters
+    final List<Map<String, dynamic>> modules = [
+  {'title': 'Attendance', 'icon': Icons.co_present, 'color': const Color(0xFF5D4037), 'route': '/attendance'},
+  {'title': 'Timetable', 'icon': Icons.calendar_today, 'color': const Color(0xFF8D6E63), 'route': '/timetable'},
+  {'title': 'Assignments', 'icon': Icons.assignment, 'color': const Color(0xFF5D4037), 'route': '/assignments'},
+  {'title': 'Faculty', 'icon': Icons.people_alt, 'color': const Color(0xFF8D6E63), 'route': '/faculty'},
+  {'title': 'Events', 'icon': Icons.event, 'color': const Color(0xFF5D4037), 'route': '/events'},
+  {'title': 'Notifications', 'icon': Icons.notifications, 'color': const Color(0xFF8D6E63), 'route': '/notifications'},
+  {'title': 'Settings', 'icon': Icons.settings, 'color': const Color(0xFF5D4037), 'route': null},
+];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dashboard', style: TextStyle(fontWeight: FontWeight.bold)),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.account_circle, size: 30),
+            onPressed: () => Navigator.pushNamed(context, '/profile'),
+          ),
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 12),
+            const Text('Hello, Krima', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF5D4037))),
+            const Text('Welcome to your academic summary.', style: TextStyle(color: Colors.brown)),
+            const SizedBox(height: 16),
+            Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: const [
+                    _StatItem(label: 'Semester', value: 'V'),
+                    _StatItem(label: 'Attendance', value: '91%'),
+                    _StatItem(label: 'Subjects', value: '4'),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+          Expanded(
+            child: GridView.builder(
+              itemCount: modules.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 1.0,
+              ),
+              itemBuilder: (context, index) {
+                final module = modules[index];
+                return DashboardCard(
+                  title: module['title'],
+                  icon: module['icon'],
+                  color: module['color'],
+                  onTap: () {
+                    final route = module['route'];
+                    if (route != null) {
+                      Navigator.pushNamed(context, route);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Opening ${module['title']}...')),
+                      );
+                    }
+                  },
+                );
+              },
+            ),
+          ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StatItem extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _StatItem({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Color(0xFF5D4037)),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 12, color: Colors.brown),
+        ),
+      ],
+    );
+  }
+}
+
+
+
+event_gallary
+import 'package:flutter/material.dart';
+
+class EventGalleryScreen extends StatelessWidget {
+  const EventGalleryScreen({super.key});
+
+  // At least six events, as required by the dataset
+  static const List<Map<String, dynamic>> _events = [
+    {'title': 'Tech Hackathon 2026', 'date': '18 Aug', 'color': Color(0xFF5D4037), 'icon': Icons.laptop_mac},
+    {'title': 'AI & ML Workshop', 'date': '22 Aug', 'color': Color(0xFF6D4C41), 'icon': Icons.memory},
+    {'title': 'Coding Sprint', 'date': '29 Aug', 'color': Color(0xFF8D6E63), 'icon': Icons.code},
+    {'title': 'Cultural Fest', 'date': '02 Sep', 'color': Color(0xFFA1887F), 'icon': Icons.celebration},
+    {'title': 'Sports Meet', 'date': '10 Sep', 'color': Color(0xFF795548), 'icon': Icons.sports_soccer},
+    {'title': 'Alumni Talk', 'date': '15 Sep', 'color': Color(0xFF4E342E), 'icon': Icons.record_voice_over},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Event Gallery')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        // LayoutBuilder + GridView: adapts column count to available width
+        // (2 columns on phones, more on tablets/web) for true responsiveness.
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final crossAxisCount = (constraints.maxWidth ~/ 170).clamp(2, 4);
+            return GridView.builder(
+              itemCount: _events.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 0.85,
+              ),
+              itemBuilder: (context, index) {
+                final event = _events[index];
+                return _EventCard(
+                  title: event['title'] as String,
+                  date: event['date'] as String,
+                  color: event['color'] as Color,
+                  icon: event['icon'] as IconData,
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _EventCard extends StatelessWidget {
+  final String title;
+  final String date;
+  final Color color;
+  final IconData icon;
+
+  const _EventCard({required this.title, required this.date, required this.color, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(16),
+      // Stack: layers a gradient scrim and text on top of a colored
+      // "image" placeholder, positioned using Align/Positioned children.
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [color, color.withOpacity(0.6)],
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: Icon(icon, size: 40, color: Colors.white.withOpacity(0.35)),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                color: Colors.black26,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    date,
+                    style: const TextStyle(color: Colors.white70, fontSize: 11),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+faculty_screen
+import 'package:flutter/material.dart';
+
+class FacultyScreen extends StatelessWidget {
+  const FacultyScreen({super.key});
+
+  // Faculty mapped to the attendance-module subjects from the dataset
+  static const List<Map<String, String>> _faculty = [
+    {'name': 'Prof. Nirav Bhatt', 'subject': 'DBMS', 'cabin': 'Cabin 12, Block A'},
+    {'name': 'Prof. Gaurav Kumar', 'subject': 'MAD', 'cabin': 'Cabin 04, Block B'},
+    {'name': 'Prof. Prajyot Patel', 'subject': 'AI', 'cabin': 'Cabin 09, Block A'},
+    {'name': 'Prof. Dheeraj shringi', 'subject': 'CP', 'cabin': 'Cabin 07, Block C'},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Faculty Information')),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        // LayoutBuilder + GridView: column count adapts to the available
+        // width so the screen stays usable on both phones and tablets.
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final crossAxisCount = (constraints.maxWidth ~/ 180).clamp(1, 3);
+            return GridView.builder(
+              itemCount: _faculty.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+                childAspectRatio: 0.95,
+              ),
+              itemBuilder: (context, index) {
+                final f = _faculty[index];
+                return _FacultyCard(
+                  name: f['name']!,
+                  subject: f['subject']!,
+                  cabin: f['cabin']!,
+                );
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _FacultyCard extends StatelessWidget {
+  final String name;
+  final String subject;
+  final String cabin;
+
+  const _FacultyCard({required this.name, required this.subject, required this.cabin});
+
+  @override
+  Widget build(BuildContext context) {
+    final initials = name
+        .split(' ')
+        .where((w) => w.isNotEmpty)
+        .map((w) => w[0])
+        .take(2)
+        .join()
+        .toUpperCase();
+
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.all(14.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Stack: overlays the subject badge on the bottom-right corner
+            // of the avatar — a Multi-Child positioning widget.
+            SizedBox(
+              width: 72,
+              height: 72,
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  CircleAvatar(
+                    radius: 36,
+                    backgroundColor: const Color(0xFF5D4037),
+                    child: Text(
+                      initials,
+                      style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: -2,
+                    right: -2,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF8D6E63),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                      child: Text(
+                        subject,
+                        style: const TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              name,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Color(0xFF5D4037)),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              cabin,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 11, color: Colors.brown),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+login_screen
+import 'package:flutter/material.dart';
+import '../widgets/custom_widgets.dart';
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  void _handleLogin() {
+    if (_formKey.currentState!.validate()) {
+      Navigator.pushReplacementNamed(context, '/dashboard');
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            // FIXED: Locked width dimension to prevent it from getting too broad
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 400), 
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.school, size: 80, color: Theme.of(context).colorScheme.primary),
+                    const SizedBox(height: 16),
+                    Text(
+                      'Welcome Back', 
+                      style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.primary),
+                    ),
+                    const SizedBox(height: 32),
+                    CustomTextField(
+                      label: 'Student Email',
+                      icon: Icons.email_outlined,
+                      validator: (val) => val!.contains('@') ? null : 'Enter a valid university email',
+                    ),
+                    CustomTextField(
+                      label: 'Password',
+                      icon: Icons.lock_outlined,
+                      isPassword: true,
+                      validator: (val) => val!.length >= 6 ? null : 'Password must be 6+ characters',
+                    ),
+                    const SizedBox(height: 24),
+                    CustomButton(text: 'Login', onPressed: _handleLogin),
+                    TextButton(
+                      onPressed: () => Navigator.pushNamed(context, '/register'),
+                      child: Text(
+                        "Don't have an account? Register here",
+                        style: TextStyle(color: Theme.of(context).colorScheme.secondary),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+notification
+import 'package:flutter/material.dart';
+
+class NotificationsScreen extends StatelessWidget {
+  const NotificationsScreen({super.key});
+
+  // Dataset from Practical 3
+  static const List<Map<String, dynamic>> _notifications = [
+    {
+      'title': 'Internal Exam Schedule',
+      'subtitle': 'Semester V internal exams begin next Monday.',
+      'icon': Icons.event_note,
+      'time': '2h ago',
+    },
+    {
+      'title': 'Assignment Deadline',
+      'subtitle': 'REST API Integration assignment due tomorrow.',
+      'icon': Icons.assignment_late,
+      'time': '5h ago',
+    },
+    {
+      'title': 'Technical Event Registration',
+      'subtitle': 'Registrations for the Hackathon close this Friday.',
+      'icon': Icons.campaign,
+      'time': '1d ago',
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Notifications')),
+      // ListView.separated: multi-child scrollable widget with a divider
+      // between each entry, adapting to any number of notifications.
+      body: ListView.separated(
+        padding: const EdgeInsets.all(16.0),
+        itemCount: _notifications.length,
+        separatorBuilder: (_, __) => const Divider(height: 1),
+        itemBuilder: (context, index) {
+          final item = _notifications[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 22,
+                  backgroundColor: const Color(0xFF5D4037).withOpacity(0.1),
+                  child: Icon(item['icon'] as IconData, color: const Color(0xFF5D4037)),
+                ),
+                const SizedBox(width: 14),
+                // Expanded: message text wraps and fills remaining row width
+                // responsively across phone and tablet screen sizes.
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item['title'] as String,
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        item['subtitle'] as String,
+                        style: const TextStyle(fontSize: 13, color: Colors.brown),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  item['time'] as String,
+                  style: const TextStyle(fontSize: 11, color: Colors.grey),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+
+
+profile
+import 'package:flutter/material.dart';
+
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Student Profile')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          children: [
+            Center(
+              child: CircleAvatar(
+                radius: 60,
+                backgroundColor: const Color(0xFF5D4037),
+                child: const Text(
+                  'KP',
+                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.white),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            const Center(
+              child: Text('Krima Parmar', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF5D4037))),
+            ),
+            const Center(
+              child: Text('artificial Intelligence & Machine Learning', style: TextStyle(color: Colors.brown)),
+            ),
+            const Divider(height: 40, color: Color(0xFF8D6E63)),
+            const ProfileInfoTile(icon: Icons.badge, label: 'Student ID', value: '24AIML027'),
+            const ProfileInfoTile(icon: Icons.school, label: 'Semester', value: 'V'),
+            const ProfileInfoTile(icon: Icons.percent, label: 'Attendance', value: '91%'),
+            const ProfileInfoTile(icon: Icons.menu_book, label: 'Subjects', value: 'MAD, DBMS, AI, CP'),
+            const ProfileInfoTile(icon: Icons.email, label: 'Email', value: 'krima.parmar@university.edu'),
+            const ProfileInfoTile(icon: Icons.phone, label: 'Phone', value: '+91 555-0199'),
+            const SizedBox(height: 40),
+            OutlinedButton.icon(
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.red,
+                side: const BorderSide(color: Colors.red),
+                minimumSize: const Size(double.infinity, 50),
+              ),
+              icon: const Icon(Icons.logout),
+              label: const Text('Logout'),
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileInfoTile extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+
+  const ProfileInfoTile({super.key, required this.icon, required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Row(
+        children: [
+          Icon(icon, color: Theme.of(context).colorScheme.primary),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(label, style: const TextStyle(color: Colors.brown, fontSize: 12)),
+              Text(value, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xFF5D4037))),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+registration_screen
+import 'package:flutter/material.dart';
+import '../widgets/custom_widgets.dart';
+
+class RegistrationScreen extends StatefulWidget {
+  const RegistrationScreen({super.key});
+
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  void _handleRegister() {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Registration Successful! Please login.')),
+      );
+      Navigator.pop(context);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Create Account')),
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(24.0),
+            // Locked maximum constraint width layout parameters to match login styling consistency
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 400),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      label: 'Full Name',
+                      icon: Icons.person_outline,
+                      validator: (val) => val!.isEmpty ? 'Enter your name' : null,
+                    ),
+                    CustomTextField(
+                      label: 'Student ID / Roll No',
+                      icon: Icons.badge_outlined,
+                      validator: (val) => val!.isEmpty ? 'Enter your roll number' : null,
+                    ),
+                    CustomTextField(
+                      label: 'Email Address',
+                      icon: Icons.email_outlined,
+                      validator: (val) => val!.contains('@') ? null : 'Enter a valid email',
+                    ),
+                    CustomTextField(
+                      label: 'Password',
+                      icon: Icons.lock_outlined,
+                      isPassword: true,
+                      validator: (val) => val!.length >= 6 ? null : 'Password must be 6+ characters',
+                    ),
+                    const SizedBox(height: 24),
+                    CustomButton(text: 'Register', onPressed: _handleRegister),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+splash
+import 'package:flutter/material.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 3), () {
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, '/login');
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.school_rounded, size: 100, color: Colors.white),
+            const SizedBox(height: 16),
+            const Text(
+              'Smart Student Companion',
+              style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 24),
+            const CircularProgressIndicator(color: Colors.white),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+timetable_screen
+import 'package:flutter/material.dart';
+
+class TimetableScreen extends StatefulWidget {
+  const TimetableScreen({super.key});
+
+  @override
+  State<TimetableScreen> createState() => _TimetableScreenState();
+}
+
+class _TimetableScreenState extends State<TimetableScreen> {
+  int _selectedDay = 0;
+
+  static const List<String> _days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+
+  // Weekly schedule built from the Practical dataset (DBMS, MAD, AI, CN)
+  static const Map<String, List<Map<String, String>>> _schedule = {
+    'Mon': [
+      {'time': '09:00 - 10:00', 'subject': 'DBMS', 'room': 'Room 204'},
+      {'time': '10:00 - 11:00', 'subject': 'MAD', 'room': 'Room 105'},
+      {'time': '11:15 - 12:15', 'subject': 'AI', 'room': 'Lab 3'},
+    ],
+    'Tue': [
+      {'time': '09:00 - 10:00', 'subject': 'CN', 'room': 'Room 302'},
+      {'time': '10:00 - 11:00', 'subject': 'DBMS', 'room': 'Lab 1'},
+    ],
+    'Wed': [
+      {'time': '09:00 - 10:00', 'subject': 'AI', 'room': 'Room 204'},
+      {'time': '10:00 - 11:00', 'subject': 'MAD', 'room': 'Lab 2'},
+      {'time': '11:15 - 12:15', 'subject': 'CN', 'room': 'Room 105'},
+    ],
+    'Thu': [
+      {'time': '09:00 - 10:00', 'subject': 'DBMS', 'room': 'Room 204'},
+      {'time': '10:00 - 11:00', 'subject': 'AI', 'room': 'Lab 3'},
+    ],
+    'Fri': [
+      {'time': '09:00 - 10:00', 'subject': 'MAD', 'room': 'Room 105'},
+      {'time': '10:00 - 11:00', 'subject': 'CN', 'room': 'Room 302'},
+      {'time': '11:15 - 12:15', 'subject': 'AI', 'room': 'Lab 1'},
+    ],
+  };
+
+  static const Map<String, Color> _subjectColors = {
+    'DBMS': Color(0xFF5D4037),
+    'MAD': Color(0xFF8D6E63),
+    'AI': Color(0xFF6D4C41),
+    'CN': Color(0xFFA1887F),
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    final entries = _schedule[_days[_selectedDay]] ?? [];
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Timetable')),
+      body: Column(
+        children: [
+          // Wrap: multi-child widget that lays day chips out responsively,
+          // moving to a new line automatically on narrow screens.
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Wrap(
+              spacing: 8,
+              children: List.generate(_days.length, (index) {
+                final selected = index == _selectedDay;
+                return ChoiceChip(
+                  label: Text(_days[index]),
+                  selected: selected,
+                  onSelected: (_) => setState(() => _selectedDay = index),
+                  selectedColor: const Color(0xFF5D4037),
+                  labelStyle: TextStyle(
+                    color: selected ? Colors.white : const Color(0xFF5D4037),
+                    fontWeight: FontWeight.bold,
+                  ),
+                  backgroundColor: Colors.white,
+                );
+              }),
+            ),
+          ),
+          // Expanded + ListView: remaining vertical space is filled and the
+          // period list scrolls independently of the day-selector above it.
+          Expanded(
+            child: entries.isEmpty
+                ? const Center(child: Text('No classes scheduled', style: TextStyle(color: Colors.brown)))
+                : ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    itemCount: entries.length,
+                    separatorBuilder: (_, __) => const SizedBox(height: 10),
+                    itemBuilder: (context, index) {
+                      final entry = entries[index];
+                      final color = _subjectColors[entry['subject']] ?? const Color(0xFF5D4037);
+                      return _PeriodTile(
+                        time: entry['time']!,
+                        subject: entry['subject']!,
+                        room: entry['room']!,
+                        color: color,
+                      );
+                    },
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PeriodTile extends StatelessWidget {
+  final String time;
+  final String subject;
+  final String room;
+  final Color color;
+
+  const _PeriodTile({
+    required this.time,
+    required this.subject,
+    required this.room,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          children: [
+            // Fixed-width single-child container acting as a colored time marker
+            Container(
+              width: 6,
+              height: 44,
+              decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
+            ),
+            const SizedBox(width: 14),
+            // Expanded: subject/room text takes all remaining row width responsively
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(subject, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                  const SizedBox(height: 2),
+                  Text(room, style: const TextStyle(color: Colors.brown, fontSize: 12)),
+                ],
+              ),
+            ),
+            Text(time, style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w600)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+widgets/
+custom_widget
+import 'package:flutter/material.dart';
+
+// Reusable Input Field
+class CustomTextField extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final bool isPassword;
+  final String? Function(String?)? validator;
+  final TextEditingController? controller;
+
+  const CustomTextField({
+    super.key,
+    required this.label,
+    required this.icon,
+    this.isPassword = false,
+    this.validator,
+    this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: TextFormField(
+        controller: controller,
+        obscureText: isPassword,
+        validator: validator,
+        decoration: InputDecoration(
+          labelText: label,
+          prefixIcon: Icon(icon, color: Theme.of(context).colorScheme.primary),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          filled: true,
+          fillColor: Colors.white, // Input field matches White accent
+        ),
+      ),
+    );
+  }
+}
+
+// Reusable Primary Button
+class CustomButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const CustomButton({super.key, required this.text, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
+        ),
+        child: Text(text, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+      ),
+    );
+  }
+}
+
+
+// Reusable section title used to organize content within a scrollable screen
+class SectionHeader extends StatelessWidget {
+  final String title;
+  final IconData? icon;
+
+  const SectionHeader({super.key, required this.title, this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          if (icon != null) ...[
+            Icon(icon, size: 18, color: const Color(0xFF5D4037)),
+            const SizedBox(width: 6),
+          ],
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF5D4037),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Reusable Interactive Dashboard Card
+class DashboardCard extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
+
+  const DashboardCard({
+    super.key,
+    required this.title,
+    required this.icon,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: InkWell(
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0), // Reduced internal padding
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 20, // Reduced circle element boundary size
+                backgroundColor: color.withOpacity(0.1),
+                child: Icon(icon, size: 22, color: color), // Reduced icon scaling size
+              ),
+              const SizedBox(height: 8),
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold, 
+                  fontSize: 14, // More compact text sizing rules
+                  color: Color(0xFF5D4037),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+/
+
+main.dart
+import 'package:flutter/material.dart';
+import 'screens/splash_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/registration_screen.dart';
+import 'screens/dashboard_screen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/attendance_screen.dart';
+import 'screens/timetable_screen.dart';
+import 'screens/assignments_screen.dart';
+import 'screens/notifications_screen.dart';
+import 'screens/faculty_screen.dart';
+import 'screens/event_gallery_screen.dart';
+
+void main() {
+  runApp(const StudentCompanionApp());
+}
+
+class StudentCompanionApp extends StatelessWidget {
+  const StudentCompanionApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Smart Student Companion',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        // Theme updated to Brown, Cream, and White
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF5D4037), // Rich Brown
+          primary: const Color(0xFF5D4037),
+          secondary: const Color(0xFF8D6E63), // Light Soft Brown
+          surface: const Color(0xFFFFFDD0), // Warm Cream
+        ),
+        scaffoldBackgroundColor: const Color(0xFFFFFDD0), // Cream Base
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF5D4037),
+          foregroundColor: Colors.white, // White text/icons
+          elevation: 0,
+        ),
+        cardTheme: const CardThemeData(
+          color: Colors.white, // Crisp White Cards
+          elevation: 3,
+          margin: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+        ),
+      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const SplashScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegistrationScreen(),
+        '/dashboard': (context) => const DashboardScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/attendance': (context) => const AttendanceScreen(),
+        '/timetable': (context) => const TimetableScreen(),
+        '/assignments': (context) => const AssignmentsScreen(),
+        '/notifications': (context) => const NotificationsScreen(),
+        '/faculty': (context) => const FacultyScreen(),
+        '/events': (context) => const EventGalleryScreen(),
+      },
+    );
+  }
+}
+
+
